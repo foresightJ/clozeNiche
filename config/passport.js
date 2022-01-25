@@ -12,13 +12,14 @@ passport.use(
 		},
 		function (accessToken, refreshToken, profile, cb) {
 			// a user has logged in with OAuth...
-			User.findOne({ googleID: profile.id }, function (err, user) {
+			User.findOne({ googleId: profile.id }, function (err, user) {
 				if (err) return cb(err);
 				if (user) {
+					// we have a return visitor!
 					return cb(null, user);
 				} else {
 					// register a new user via OAuth
-					var newUser = new User({
+					let newUser = new User({
 						name: profile.displayName,
 						email: profile.emails[0].value,
 						googleId: profile.id,

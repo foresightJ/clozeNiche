@@ -7,12 +7,12 @@ var session = require('express-session');
 // passport authentication middleware
 var passport = require('passport');
 var logger = require('morgan');
+// load secrets from .env file
+require('dotenv').config();
 // connect to the database with Mongoose
 require('./config/database');
 // requiring passport config settings
 require('./config/passport');
-// load secrets from .env file
-require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
