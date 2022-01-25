@@ -2,9 +2,17 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+// express cookie-session
+var session = require('express-session');
+// passport authentication middleware
+var passport = require('passport');
 var logger = require('morgan');
 // connect to the database with Mongoose
 require('./config/database');
+// requiring passport config settings
+require('./config/passport');
+// load secrets from .env file
+require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,6 +27,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// mounting session middleware
+app.use(
+	session({
+		secret: 'clozeNiche!',
+		resave: false,
+		saveUninitialized: true,
+	})
+);
+// monting the passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
