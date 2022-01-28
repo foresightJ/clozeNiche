@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+	<head>
+		<title>welcome to clozeniche</title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<h1>CLOZENICHE</h1>
+		<h2>Dive into your innercircle</h2>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<!-- 	<a href="/logout"><i class="material-icons left"></i>Log Out</a> -->
+
+					<h3>
+						<a href="/auth/google"
+							><i class="material-icons left"></i>Login with Google</a
+						>
+					</h3>
+
+					<h3>
+						<a href="/users/new"
+							><i class="material-icons left"></i>Create Account</a
+						>
+					</h3>
+
+					<!-- Add login UI here -->
+				</div>
+			</nav>
+		</div>
+	</body>
 </html>

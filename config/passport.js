@@ -20,7 +20,7 @@ passport.use(
 				} else {
 					// register a new user via OAuth
 					let newUser = new User({
-						name: profile.displayName,
+						username: profile.displayName,
 						email: profile.emails[0].value,
 						googleId: profile.id,
 					});

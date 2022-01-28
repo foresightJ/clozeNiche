@@ -1,0 +1,137 @@
+<%- include('../partials/header') %>
+
+<div class="row">
+	<form method="POST" action="/users" class="col s12">
+		<div class="row">
+			<div class="input-field col s6">
+				<label for="first_name">First Name</label>
+				<input
+					placeholder="Preferred Name"
+					id="first_name"
+					type="text"
+					class="validate"
+					name="first_name"
+				/>
+				
+			</div>
+			<div class="input-field col s6">
+				<input id="last_name" type="text" class="validate" name="last_name"/>
+				<label for="last_name">Last Name</label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="input-field col s6">
+				<input id="password" type="password" class="validate" name="password"/>
+				<label for="password">Password</label>
+			</div>
+		
+			<div class="input-field col s6">
+				<input id="email" type="email" class="validate" name="email"/>
+				<label for="email">Email</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s6">
+				<input id="username" type="text" class="validate" name="username"/>
+				<label for="username">Enter a username</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="chip">
+				<label for="avatar">Choose a profile photo</label>
+				<input type="file", id="avatar" name="avatar" accept="image/png, image/jpeg">
+			</div>
+		</div>
+
+		
+		<div class="row">
+			<div class="input-field col s12">
+				<!-- <i class="material-icons prefix">mode_edit</i> -->
+				<textarea id="about" class="materialize-textarea" data-length="300" name ="about"></textarea>
+				<label for="about">About you</label>
+			</div>
+		</div>
+
+
+		<div id="strengths" class="input-field col s6">
+			<label for="strengths">what are you good at</label>
+			<select name="strengths" id="strengths" multiple >
+				<optgroup label="Technical Strengths">
+					<option value="learning">Learning Agility</option>
+					<option value="cooking">Cooking</option>
+					<option value="runnung">running</option>
+
+				</optgroup>
+				<optgroup label="Social Strenths">
+					<option value="learning">Learning Agility</option>
+				  <option value="cooking">Cooking</option>
+				  <option value="runnung">running</option>
+
+				</optgroup>
+				
+			</select>
+			
+		</div>
+
+		<div id="interests">
+			<label for="interests">Help me improve</label>
+			<select id="interests" name="interests" multiple>
+				<option value="Football">Football</option>
+				<option value="Art">Art</option>
+				<option value="Music">Music</option>
+				<option value="Hiking">Hiking</option>
+				<option value="Swimming">Swimming</option>
+				<option value="Board Games">Board Games</option>
+				<option value="Anime">Anime</option>
+			</select>
+
+		</div>
+
+
+
+		
+    <div id="helpMeImprove">
+
+			<label for="helpMeimprove">Help me improve</label>
+			<select id="helpMeImprove" name="helpMeImprove" multiple>
+				<option value="Time Management">Time Mangement</option>
+				<option value="Public Speaking">Public Speaking</option>
+				<option value="Financial Planning">Financial Planning</option>
+				<option value="Physical Fitness">Physical Fitness</option>
+			</select>
+
+		</div>
+		 
+
+
+	  	<!-- <h6>What are your interests<p>
+      <label>
+        <input type="checkbox" />
+        <span>Red</span>
+      </label>
+    </p></h6>
+
+		<p><label for=""></label></p>
+		
+		<p>
+      <label>
+        <input type="checkbox" />
+        <span>Red</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" checked="checked" />
+        <span>Yellow</span>
+      </label>
+    </p> -->
+		<button type="submit">Create Profile</button>
+	</form>
+</div>
+
+
+
+<%- include('../partials/footer') %>

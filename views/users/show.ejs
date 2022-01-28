@@ -1,0 +1,25 @@
+
+<section id="show-page">
+	<% if (user) { %>
+		<div>Title: </div>
+		<div><%= user.username %></div>
+		<div>About: </div>
+		<div><%= user.about %></div>
+		<div>Interests: </div>
+		<div><%= user.interests %></div>
+		<div>Strengths: </div>
+		<div><%= user.strengths %></div>
+		<div>I want to improve: </div>
+		<div><%= user.helpMeImprove %></div>
+	<% } %>
+  <% } else { %>
+		<h5>No registered user yet</h5>
+	<% } %>
+	 
+
+  <!-- start cast list -->
+
+  <!-- end cast list -->
+</section>
+
+

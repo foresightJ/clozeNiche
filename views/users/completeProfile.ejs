@@ -1,0 +1,108 @@
+<%- include('../partials/header') %>
+		<h3>Welcome to your circle</h3> 
+		
+		<section class="orders">
+			<% if (user) { %>
+				<form method="POST" action="/users">
+				<div class="container">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label">UserName</label>
+									<input type="email"  name="email" class="form-control" id="exampleFormControlInput1" value=<%=user.username%> disabled>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label" >Email</label>
+									<input type="text" name="username" class="form-control" id="exampleFormControlInput1" value=<%=user.email%> disabled>
+								</div>
+							</div>
+						</div>
+
+						
+						<!-- Contacts -->
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label">linkedIn (Url)</label>
+									<input type="text"  name="linkedIn" class="form-control" id="exampleFormControlInput1" placeholder="Enter site url">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label" >Github (Url)</label>
+									<input type="text" name="gitHub" class="form-control" id="exampleFormControlInput1" placeholder="Enter site url">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label" >Plum (Url)</label>
+									<input type="text" name="plum" class="form-control" id="exampleFormControlInput1" placeholder="Enter site url">
+								</div>
+							</div>
+						</div>
+
+						<!-- strengths and interest -->
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label">Strength</label>
+									<% for( let i = 0; i < 5; i++ ) { %>
+										<input type="text"  name=st<%=i%> class="form-control" id="exampleFormControlInput1">
+										<br>
+									<% } %>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label" >Interest</label>
+									<% for( let i = 0; i < 5; i++ ) { %>
+										<input type="text"  name=in<%=i%> class="form-control" id="exampleFormControlInput1">
+										<br>
+									<% } %>
+								</div>
+							</div>
+						</div>
+
+						<!-- Improvements -->
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label">Area Of Improvement</label>
+										<input type="text"  name="title" class="form-control" id="exampleFormControlInput1">
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-8">
+								<label for="exampleFormControlTextarea1" class="form-label">Reason</label>
+  							<textarea  name="reason" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+							</div>
+							<div class="col-sm-4">
+								<label for="exampleFormControlInput1" class="form-label">Improve By</label>
+										<input type="date"  name="deadline" class="form-control" id="exampleFormControlInput1">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+									
+										<button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+									
+							</div>
+							
+						</div>
+					</div>
+				</form>
+			<% } else { %>
+				<h3>
+					<a href="/auth/google"
+						><i class="material-icons left"></i>Login with Google</a
+					>
+				</h3>
+			<% } %>
+		</section>
+		
+		<%- include('../partials/footer') %>
