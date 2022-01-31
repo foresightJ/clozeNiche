@@ -1,7 +1,7 @@
-
+<%- include('../partials/header') %>
 <section id="show-page">
 	<% if (user) { %>
-		<div>Title: </div>
+		<!-- <div>Title: </div>
 		<div><%= user.username %></div>
 		<div>About: </div>
 		<div><%= user.about %></div>
@@ -10,8 +10,98 @@
 		<div>Strengths: </div>
 		<div><%= user.strengths %></div>
 		<div>I want to improve: </div>
-		<div><%= user.helpMeImprove %></div>
-	<% } %>
+		<div><%= user.helpMeImprove %></div> -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">User Profile</h5>
+							<div class="card" style="width: 18rem;">
+								<img class="card-img-top" src="https://www.kemhospitalpune.org/wp-content/uploads/2020/12/Profile_avatar_placeholder_large.png" alt="Card image cap">
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<p class="card-text">Username: <%= user.username %></p>
+								</div>
+								<div class="col-sm-6">
+									<p class="card-text"> Email: <%= user.email %></p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="card" style="width: 18rem;">
+										<div class="card-body">
+											<h5 class="card-title">My Strenghts</h5>
+											<ul class="list-group list-group-flush">
+												<% user.strengths.map(el=>{ %>
+												<li class="list-group-item"><%= el%></li>
+												<% }) %>
+											</ul>
+										</div>
+									</div>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<div class="card" style="width: 18rem;">
+										<div class="card-body">
+											<h5 class="card-title">My Interests</h5>
+											<ul class="list-group list-group-flush">
+												<% user.interests.map(el=>{ %>
+												<li class="list-group-item"><%= el%></li>
+												<% }) %>
+											</ul>
+										</div>
+									</div>
+									</ul>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="col-sm-3">
+										<a href="/users/complete-profile"  class="btn btn-secondary">Edit</a>
+									</div>
+									<form class="col-sm-3">
+										<button type="submit" class="btn btn-danger">Delete</button>
+									</form>
+								</div>
+								<div class="col-sm-6">
+									<p class="card-text"><a href="<%= user.contact[0].linkedIn %>" >LinkedIn</a></p>
+									<p class="card-text"><a href="<%= user.contact[0].gitHub %>" >GitHub</a></p>
+									<p class="card-text"><a href="<%= user.contact[0].plum %>">Plum</a></p>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">To Improve</h5>
+							<div class="col-sm-6">
+								<% user.improvements.map(el=>{ %>
+									
+									<li class="list-group-item"><a href="/users/<%= el.toImprove._id%>"><%= el.toImprove.title%></a></li>
+									
+									<div class="col-sm-3">
+										<a href="/users/complete-profile"  class="">Edit</a>
+								
+										<form method="POST" action="/users/deleteImprovement">
+											<input type="hidden" value=<%= el.toImprove._id%>  name="toImproveId"/>
+											<button type="submit" class="">Del</button>
+										</form>
+									</div>
+									<% }) %>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
   <% } else { %>
 		<h5>No registered user yet</h5>
 	<% } %>
@@ -23,3 +113,4 @@
 </section>
 
 
+<%- include('../partials/footer') %>

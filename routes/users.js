@@ -13,6 +13,9 @@ router.get('/new', usersCtrl.new);
 // router.get('/show', usersCtrl.showAll);
 router.get('/:id', usersCtrl.show);
 router.post('/', usersCtrl.create);
+router.post('/improve/:id', usersCtrl.showImprove);
+router.post("/deleteImprovement", usersCtrl.deleteImprovement)
+
 
 
 // router.get('/complete-profile', usersCtrl.completeProfile);

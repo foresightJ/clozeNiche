@@ -9,13 +9,15 @@ module.exports = {
 	show,
 	new: newUser,
 	create,
-	postUpdatedUser
+	postUpdatedUser,
+	showImprove,
+	deleteImprovement,
 	// completeProfile,
 };
 
 // get the complete profile page
 function index(req, res, next) {
-	console.log(req.user)
+	// console.log(req.user)
 	res.render('users/completeProfile', {
 		user: req.user,
 		title: "create your profile"
@@ -34,23 +36,39 @@ function newUser(req, res) {
 // }
 
 
-// // Get Complete Profile
-// async function completeProfile(req, res){
-// 	try {
-// 		console.log(localStorage.getItem('userId'));
-// 		res.render("users/new",{
+ // Get improve
+async function showImprove(req, res){
+	try {
+		console.log(req.params.id)
 
-// 		}
-// 	)
-// 	} catch (err) {
+		}catch (err) {
 		
-// 	}
-// }
+	}
+}
+ // Get delete improvement
+async function deleteImprovement(req, res){
+	try {
+		const userId = req.user._id
+		const toImproveId = req.body.toImproveId;
+		console.log(userId, toImproveId)
+
+		const improve = await Improvements.findById(toImproveId).populate({
+			path: "userId"
+		}).exec()
+
+		if (parseInt(userId) === parseInt(improve.userId._id)){
+			console.log("able to delete")
+			// const user = await User.findByIdAndRemove(userId)
+		}
+
+		}catch (err) {
+		
+	}
+}
 
 // Create New User
 async function create(req, res) {
 	try {
-		console.log(req.body)
 		const data = {	
 			username: req.body.username,
 			about: req.body.about,
@@ -64,17 +82,12 @@ async function create(req, res) {
 		// console.log(data)
 	
 		const user = await new User(data);
-		console.log(user)
-		console.log(user._id);
 		res.redirect(`/users/${user._id}`);
 		
 	} catch (error) {
 		console.log(error)
 	}
-	// user.save(function (err) {
-	// 	if (err) return res.redirect('/users/new');
-	// 	console.log(user);
-	// });
+
 }
 
 // Show user Account Page
@@ -82,10 +95,22 @@ async function show(req, res) {
 
 	try {
 		const userId = req.params.id
-		const user = await User.find({})
+		// const user = await User.findById(userId).populate
+		const user = await User.findById(userId)
+    .populate({
+        path: 'improvements.toImprove',
+        populate:({
+            path: 'comments.comment',
+            populate: ({ 
+                path: 'userId',
+                populate: ({path: 'improvementId'})
+            }) 
+        })
+    })
+    .exec()
 		// console.log(userId)
-		// console.log(user);
-			res.render('users/show', { title: 'User Profile', user:user});
+		// console.log("user:",user);
+			res.render('users/show', { title: 'User Profile', user:req.user});
 
 	} catch (error) {
 		console.log(error);
@@ -97,13 +122,10 @@ async function show(req, res) {
 // post updated User Profile
 async function postUpdatedUser(req, res) {
 	try {
-		console.log(req.user._id)
-		console.log(req.body)
 	
 		const userId = req.user._id
 		const user  = await User.findById(userId)
 		
-		console.log(user)
 		const strengths = []
 		const interests = []
 		const title = req.body.title
@@ -127,50 +149,17 @@ async function postUpdatedUser(req, res) {
 		})
 		const int = [req.body.in0, req.body.in1, req.body.in2, req.body.in3, req.body.in4]
 		const st = [req.body.st0, req.body.st1, req.body.st2, req.body.st3, req.body.st4]
-		
-		
-		for (let i = 0; i < int.length; i++) {
-			if(int[i] !== undefined || ""){
-				interests.push(int[i])
-			}
-		}
-		for (let i = 0; i < st.length; i++) {
-			if(st[i] !== undefined || ""){
-				interests.push(st[i])
-			}
-		}
-		console.log(strengths)
-		console.log(interests)
+
+		// console.log(strengths)
+		// console.log(interests)
 		user.strengths = st
 		user.interests = int
 		const savedImprove =  await newImprove.save()
-		user.improvements.push(savedImprove._id)
+		user.improvements.push({toImprove: savedImprove._id})
 		const savedInfo = await user.save()
-		console.log(savedImprove)
-		console.log(savedInfo)
-		
-		// const data = {	
-		// 	username: req.body.username,
-		// 	about: req.body.about,
-		// 	avatar: req.body.avatar,
-		// 	googleId: req.body.email,
-		// 	strengths: req.body.strengths,
-		// 	interests: req.body.interests,
-		// 	helpMeImprove: req.body.helpMeImprove,
-		// }
-		// console.log(data)
-	
-		// const user = await User.findById(userId);
-		// user.username = req.body.username;
-		// user.about = req.body.about;
-		// user.avatar = req.body.avatar;
-		// user.googleId = req.body.email;
-		// user.strengths = req.body.strengths;
-		// user.interests = req.body.interests;
-		// user.helpMeImprove = req.body.helpMeImprove;
-		// user.save()
-		// res.redirect(`/users/${userId}`);
-		
+		// console.log(savedImprove)
+		// console.log(savedInfo)
+		res.redirect(`/users/${userId}`)
 	} catch (error) {
 		console.log(error)
 	}
